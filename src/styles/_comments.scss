@@ -1,0 +1,131 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.comments-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+  background: $color-background;
+  border-left: 1px solid $color-border;
+  box-shadow: $shadow-lg;
+  @include flex-column;
+  z-index: $z-index-sidebar;
+
+  @include respond-to(desktop) {
+    width: 300px;
+  }
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-lg;
+    border-bottom: 1px solid $color-border-light;
+    background: $color-background-alt;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__count {
+    @include flex-center;
+    background: $color-accent;
+    color: $color-background;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 $spacing-xs;
+    border-radius: 12px;
+  }
+
+  &__empty {
+    flex: 1;
+    @include flex-center;
+    padding: $spacing-xl;
+    text-align: center;
+  }
+
+  &__empty-text {
+    font-size: $font-size-base;
+    color: $color-text-light;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-md;
+    @include smooth-scroll;
+  }
+}
+
+// Comment Card
+.comment-card {
+  background: $color-background-alt;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+  transition: box-shadow $transition-fast;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    box-shadow: $shadow-sm;
+  }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-sm;
+    gap: $spacing-sm;
+  }
+
+  &__date {
+    font-size: $font-size-xs;
+    color: $color-text-light;
+    font-weight: $font-weight-medium;
+  }
+
+  &__delete {
+    background: none;
+    border: none;
+    font-size: $font-size-xl;
+    color: $color-text-light;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    @include flex-center;
+    border-radius: $border-radius-sm;
+    transition: all $transition-fast;
+    line-height: 1;
+
+    @include focus-visible;
+
+    &:hover {
+      background: $color-danger;
+      color: $color-background;
+    }
+  }
+
+  &__text {
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+    color: $color-text-primary;
+    margin: 0;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+}

@@ -1,0 +1,197 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $color-overlay;
+  @include flex-center;
+  z-index: $z-index-modal;
+  padding: $spacing-lg;
+  animation: fadeIn $transition-fast;
+
+  &__content {
+    background: $color-background;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-xl;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp $transition-base;
+
+    @include respond-to(tablet) {
+      max-width: 100%;
+    }
+  }
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-lg;
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: $font-size-xxxl;
+    color: $color-text-light;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    @include flex-center;
+    border-radius: $border-radius-sm;
+    transition: all $transition-fast;
+    line-height: 1;
+
+    @include focus-visible;
+
+    &:hover {
+      background: $color-background-alt;
+      color: $color-text-primary;
+    }
+  }
+
+  &__form {
+    padding: $spacing-lg;
+    @include flex-column;
+    gap: $spacing-lg;
+    overflow-y: auto;
+    @include smooth-scroll;
+  }
+
+  &__info {
+    padding: $spacing-md;
+    background: lighten($color-accent, 45%);
+    border-left: 3px solid $color-accent;
+    border-radius: $border-radius-sm;
+  }
+
+  &__info-text {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+
+  &__field {
+    @include flex-column;
+    gap: $spacing-sm;
+  }
+
+  &__label {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+
+  &__textarea {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-md;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: $color-text-primary;
+    resize: vertical;
+    transition: border-color $transition-fast;
+
+    @include focus-visible;
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+    }
+
+    &::placeholder {
+      color: $color-text-light;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+
+    @include respond-to(tablet) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__button {
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $border-radius-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border: none;
+
+    @include focus-visible;
+
+    @include respond-to(tablet) {
+      width: 100%;
+    }
+
+    &--primary {
+      background: $color-accent;
+      color: $color-background;
+
+      &:hover {
+        background: darken($color-accent, 10%);
+      }
+
+      &:active {
+        background: darken($color-accent, 15%);
+      }
+    }
+
+    &--secondary {
+      background: $color-background-alt;
+      color: $color-text-primary;
+
+      &:hover {
+        background: darken($color-background-alt, 5%);
+      }
+
+      &:active {
+        background: darken($color-background-alt, 10%);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
